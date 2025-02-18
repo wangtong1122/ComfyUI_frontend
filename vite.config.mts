@@ -95,7 +95,7 @@ function getModuleName(id: string): string {
 }
 
 const DEV_SERVER_COMFYUI_URL =
-  process.env.DEV_SERVER_COMFYUI_URL || 'http://127.0.0.1:8188'
+  process.env.DEV_SERVER_COMFYUI_URL || 'http://192.168.55.10:8188'
 
 export default defineConfig({
   base: '',

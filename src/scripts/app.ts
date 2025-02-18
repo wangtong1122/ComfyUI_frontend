@@ -815,12 +815,14 @@ export class ComfyApp {
     ro.observe(this.bodyRight)
     ro.observe(this.bodyBottom)
 
+    // 调用插件的init方法
     await useExtensionService().invokeExtensionsAsync('init')
     await this.registerNodes()
 
     this.#addDrawNodeHandler()
     this.#addDropHandler()
 
+    //调用插件的setup方法
     await useExtensionService().invokeExtensionsAsync('setup')
   }
 

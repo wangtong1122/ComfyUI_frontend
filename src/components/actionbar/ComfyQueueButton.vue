@@ -79,28 +79,13 @@ const { mode: queueMode } = storeToRefs(useQueueSettingsStore())
 
 const { t } = useI18n()
 const queueModeMenuItemLookup = computed(() => ({
+  // 设置并发类型
   disabled: {
     key: 'disabled',
     label: t('menu.queue'),
     tooltip: t('menu.disabledTooltip'),
     command: () => {
       queueMode.value = 'disabled'
-    }
-  },
-  instant: {
-    key: 'instant',
-    label: `${t('menu.queue')} (${t('menu.instant')})`,
-    tooltip: t('menu.instantTooltip'),
-    command: () => {
-      queueMode.value = 'instant'
-    }
-  },
-  change: {
-    key: 'change',
-    label: `${t('menu.queue')} (${t('menu.onChange')})`,
-    tooltip: t('menu.onChangeTooltip'),
-    command: () => {
-      queueMode.value = 'change'
     }
   }
 }))

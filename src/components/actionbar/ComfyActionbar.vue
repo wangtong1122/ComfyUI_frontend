@@ -29,6 +29,7 @@ import { useSettingStore } from '@/stores/settingStore'
 
 import ComfyQueueButton from './ComfyQueueButton.vue'
 
+// 触发执行
 const settingsStore = useSettingStore()
 
 const visible = computed(

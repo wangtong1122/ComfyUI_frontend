@@ -48,3 +48,4 @@ dist.zip
 
 # Generated JSON Schemas
 /schemas/
+/.history/

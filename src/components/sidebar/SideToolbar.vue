@@ -12,9 +12,10 @@
         @click="onTabClick(tab)"
       />
       <div class="side-tool-bar-end">
+        <!--侧边栏的UI-->
         <SidebarLogoutIcon v-if="userStore.isMultiUserServer" />
         <SidebarThemeToggleIcon />
-        <SidebarSettingsToggleIcon />
+        <SidebarSettingsToggleIcon v-if="isbu" />
       </div>
     </nav>
   </teleport>
@@ -44,6 +45,7 @@ import SidebarThemeToggleIcon from './SidebarThemeToggleIcon.vue'
 const workspaceStore = useWorkspaceStore()
 const settingStore = useSettingStore()
 const userStore = useUserStore()
+const isbu = useSettingStore().isShowSettingButton
 
 const teleportTarget = computed(() =>
   settingStore.get('Comfy.Sidebar.Location') === 'left'

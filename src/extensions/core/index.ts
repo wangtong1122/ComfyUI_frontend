@@ -1,3 +1,4 @@
+import '../cmic/permissionControl'
 import './clipspace'
 import './contextMenuFilter'
 import './dynamicPrompts'

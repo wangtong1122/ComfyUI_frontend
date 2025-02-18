@@ -22,6 +22,6 @@ export const CORE_MENU_COMMANDS = [
       'Comfy.Help.OpenComfyOrgDiscord',
       'Comfy.Help.OpenComfyUIForum'
     ]
-  ],
-  [['Help'], ['Comfy.Help.AboutComfyUI', 'Comfy.Feedback']]
+  ]
+  //删除了关于和反馈入口
 ]

@@ -92,6 +92,8 @@ type ApiMessageUnion = Unionize<{
   [Key in keyof ApiCalls]: ApiMessage<Key>
 }>
 
+// [K in keyof T] 用于遍历 T 的所有属性，然后将它们映射到新的类型。在这种情况下，我们将每个属性映射到一个 CustomEvent 类型T[K]为T的属性的类型
+// 比如 inteface A { a: string, b: number }，那么 AsCustomEvents<A> 将会是 { a: CustomEvent<string>, b: CustomEvent<number> }
 /** Wraps all properties in {@link CustomEvent}. */
 type AsCustomEvents<T> = {
   readonly [K in keyof T]: CustomEvent<T[K]>
@@ -143,6 +145,7 @@ export interface ComfyApi extends EventTarget {
 }
 
 export class ComfyApi extends EventTarget {
+  //#registered 是 ComfyApi 类中的一个私有字段，用于存储已通过 addEventListener 方法注册的事件类型集合。它有助于跟踪已添加的事件类型，以避免重复注册并正确处理自定义事件类型。
   #registered = new Set()
   api_host: string
   api_base: string
@@ -155,7 +158,7 @@ export class ComfyApi extends EventTarget {
    */
   clientId?: string
   /**
-   * The current user id.
+   * The current user id.如果是默认的单用户模式，这个值是空字符串。
    */
   user: string
   socket: WebSocket | null = null
@@ -171,6 +174,7 @@ export class ComfyApi extends EventTarget {
     this.initialClientId = sessionStorage.getItem('clientId')
   }
 
+  // `internalURL` 方法用于构建内部 API 路由的 URL。它接受一个 `route` 字符串作为参数，并将其附加到内部 API 调用的基础 URL（由 `api_base` 属性派生）。生成的 URL 作为字符串返回。
   internalURL(route: string): string {
     return this.api_base + '/internal' + route
   }
@@ -182,7 +186,7 @@ export class ComfyApi extends EventTarget {
   fileURL(route: string): string {
     return this.api_base + route
   }
-
+  // RequestInit定义http请求的配置项
   fetchApi(route: string, options?: RequestInit) {
     if (!options) {
       options = {}
@@ -204,6 +208,10 @@ export class ComfyApi extends EventTarget {
     return fetch(this.apiURL(route), options)
   }
 
+  // 让我解释这个泛型参数 `TEvent` 的设计意图：
+  // 1. **泛型约束**
+  // - `TEvent extends keyof ApiEvents` 表示 TEvent 必须是 ApiEvents 类型的键值之一
+  // - `keyof` 操作符获取了 ApiEvents 类型的所有属性名的联合类型
   addEventListener<TEvent extends keyof ApiEvents>(
     type: TEvent,
     callback: ((event: ApiEvents[TEvent]) => void) | null,
@@ -725,7 +733,7 @@ export class ComfyApi extends EventTarget {
   }
 
   /**
-   * Gets a user data file for the current user
+   * Gets a user data file for the current user 加载一个用户的工作流
    */
   async getUserData(file: string, options?: RequestInit) {
     return this.fetchApi(`/userdata/${encodeURIComponent(file)}`, options)

@@ -18,6 +18,9 @@ export const useUserStore = defineStore('user', () => {
    * The current user id. null if not logged in or in single user mode.
    */
   const currentUserId = ref<string | null>(null)
+  // 默认单用户 {"storage": "server", "migrated": true}
+  // 多用户返回 {"storage": "server","users": {"wxb_023192a5-34e5-4b45-8620-a1962b1eb71c": "wxb","lxy_2f5972c8-6e9c-4073-8eb0-9cb91eea93da": "lxy"}
+  // 接口调用 Header comfy-user:wxb_023192a5-34e5-4b45-8620-a1962b1eb71c
   const isMultiUserServer = computed(
     () => userConfig.value && 'users' in userConfig.value
   )

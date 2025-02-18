@@ -37,7 +37,7 @@ function onChange(setting: SettingParams, newValue: any, oldValue: any) {
 export const useSettingStore = defineStore('setting', () => {
   const settingValues = ref<Record<string, any>>({})
   const settingsById = ref<Record<string, SettingParams>>({})
-
+  const isShowSettingButton = ref<boolean>(true)
   const settingTree = computed<SettingTreeNode>(() => {
     const root = buildTree(
       Object.values(settingsById.value).filter(
@@ -151,6 +151,7 @@ export const useSettingStore = defineStore('setting', () => {
     settingValues,
     settingsById,
     settingTree,
+    isShowSettingButton,
     addSetting,
     loadSettingValues,
     set,
