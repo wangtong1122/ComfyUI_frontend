@@ -14,8 +14,9 @@
     <template #graph-canvas-panel>
       <SecondRowWorkflowTabs
         v-if="workflowTabsPosition === 'Topbar (2nd-row)'"
+        class="pointer-events-auto"
       />
-      <GraphCanvasMenu v-if="canvasMenuEnabled" />
+      <GraphCanvasMenu v-if="canvasMenuEnabled" class="pointer-events-auto" />
     </template>
   </LiteGraphCanvasSplitterOverlay>
   <TitleEditor />
@@ -27,6 +28,9 @@
     class="w-full h-full touch-none"
   />
   <NodeSearchboxPopover />
+  <SelectionOverlay v-if="selectionToolboxEnabled">
+    <SelectionToolbox />
+  </SelectionOverlay>
   <NodeTooltip v-if="tooltipEnabled" />
   <NodeBadge />
 </template>
@@ -39,10 +43,13 @@ import BottomPanel from '@/components/bottomPanel/BottomPanel.vue'
 import GraphCanvasMenu from '@/components/graph/GraphCanvasMenu.vue'
 import NodeBadge from '@/components/graph/NodeBadge.vue'
 import NodeTooltip from '@/components/graph/NodeTooltip.vue'
+import SelectionOverlay from '@/components/graph/SelectionOverlay.vue'
+import SelectionToolbox from '@/components/graph/SelectionToolbox.vue'
 import TitleEditor from '@/components/graph/TitleEditor.vue'
 import NodeSearchboxPopover from '@/components/searchbox/NodeSearchBoxPopover.vue'
 import SideToolbar from '@/components/sidebar/SideToolbar.vue'
 import SecondRowWorkflowTabs from '@/components/topbar/SecondRowWorkflowTabs.vue'
+import { useChainCallback } from '@/composables/functional/useChainCallback'
 import { useCanvasDrop } from '@/composables/useCanvasDrop'
 import { useContextMenuTranslation } from '@/composables/useContextMenuTranslation'
 import { useCopy } from '@/composables/useCopy'
@@ -81,6 +88,9 @@ const canvasMenuEnabled = computed(() =>
   settingStore.get('Comfy.Graph.CanvasMenu')
 )
 const tooltipEnabled = computed(() => settingStore.get('Comfy.EnableTooltips'))
+const selectionToolboxEnabled = computed(() =>
+  settingStore.get('Comfy.Canvas.SelectionToolbox')
+)
 
 watchEffect(() => {
   nodeDefStore.showDeprecated = settingStore.get('Comfy.Node.ShowDeprecated')
@@ -185,6 +195,11 @@ onMounted(async () => {
   window['graph'] = comfyApp.graph
 
   comfyAppReady.value = true
+
+  comfyApp.canvas.onSelectionChange = useChainCallback(
+    comfyApp.canvas.onSelectionChange,
+    () => canvasStore.updateSelectedItems()
+  )
 
   // Load color palette
   colorPaletteStore.customPalettes = settingStore.get(
