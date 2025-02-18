@@ -329,6 +329,7 @@ export const useWorkflowStore = defineStore('workflow', () => {
   const persistedWorkflows = computed(() =>
     Array.from(workflows.value).filter((workflow) => workflow.isPersisted)
   )
+  // 读取工作流数据
   const syncWorkflows = async (dir: string = '') => {
     await syncEntities(
       dir ? 'workflows/' + dir : 'workflows',

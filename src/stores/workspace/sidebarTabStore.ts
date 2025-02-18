@@ -51,7 +51,7 @@ export const useSidebarTabStore = defineStore('sidebarTab', () => {
   }
 
   /**
-   * Register the core sidebar tabs.
+   * Register the core sidebar tabs.这里注册了四个核心的sidebarTab
    */
   const registerCoreSidebarTabs = () => {
     registerSidebarTab(useQueueSidebarTab())

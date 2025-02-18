@@ -6,6 +6,7 @@
     v-if="comfyAppReady && betaMenuEnabled && !workspaceStore.focusMode"
   >
     <template #side-bar-panel>
+      <!-- 这里是添加了SdieToolBar -->
       <SideToolbar />
     </template>
     <template #bottom-panel>

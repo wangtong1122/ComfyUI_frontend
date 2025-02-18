@@ -21,7 +21,7 @@
   </teleport>
   <div
     v-if="selectedTab"
-    class="sidebar-content-container h-full overflow-y-auto overflow-x-hidden"
+    class="h-full overflow-x-hidden overflow-y-auto sidebar-content-container"
   >
     <ExtensionSlot :extension="selectedTab" />
   </div>
@@ -46,7 +46,7 @@ const workspaceStore = useWorkspaceStore()
 const settingStore = useSettingStore()
 const userStore = useUserStore()
 const isbu = useSettingStore().isShowSettingButton
-
+// 设置侧边栏的位置
 const teleportTarget = computed(() =>
   settingStore.get('Comfy.Sidebar.Location') === 'left'
     ? '.comfyui-body-left'
