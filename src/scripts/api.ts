@@ -430,7 +430,7 @@ export class ComfyApi extends EventTarget {
 
   /**
    * Loads node object definitions for the graph
-   * @returns The node definitions
+   * @returns The node definitions 获取所有的节点定义
    */
   async getNodeDefs({ validate = false }: { validate?: boolean } = {}): Promise<
     Record<string, ComfyNodeDef>
