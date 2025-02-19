@@ -33,5 +33,24 @@ export class ComfyAppMenu {
       this.settingsGroup.element,
       this.viewGroup.element
     ])
+
+    //监听元素的变化
+    // // Setup MutationObserver to watch for new elements
+    // const observer = new MutationObserver((mutations) => {
+    //   mutations.forEach((mutation) => {
+    //   if (mutation.type === 'childList') {
+    //   // Handle new elements here
+    //   mutation.addedNodes.forEach(node => {
+    //   console.log('New element added:', node);
+    //   });
+    //   }
+    //   });
+    // });
+
+    // // Start observing the element
+    // observer.observe(this.element, {
+    //   childList: true, // Watch for changes in child elements
+    //   subtree: false   // Only watch direct children
+    // });
   }
 }

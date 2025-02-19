@@ -1717,6 +1717,14 @@ export class ComfyApp {
    * @deprecated Use useExtensionService().registerExtension instead
    */
   registerExtension(extension: ComfyExtension) {
+    console.log('禁用插件', extension)
+    if (
+      extension.name.includes('Crystools') ||
+      extension.name.includes('ManagerMenu') ||
+      extension.name.includes('pysssss.ImageFeed')
+    ) {
+      return
+    }
     useExtensionService().registerExtension(extension)
   }
 
