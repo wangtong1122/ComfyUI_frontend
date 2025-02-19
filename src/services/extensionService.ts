@@ -35,7 +35,8 @@ export const useExtensionService = () => {
         .filter((extension) => !extension.includes('extensions/core'))
         .map(async (ext) => {
           try {
-            console.log('Loading extensionz资源', ext)
+            // 打印下载的extension 的路径
+            // console.log('Loading extensionz资源', ext)
             await import(/* @vite-ignore */ api.fileExURL(ext))
           } catch (error) {
             console.error('Error loading extension', ext, error)

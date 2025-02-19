@@ -942,7 +942,8 @@ export class ComfyApp {
 
   async registerNodesFromDefs(defs: Record<string, ComfyNodeDef>) {
     await useExtensionService().invokeExtensionsAsync('addCustomNodeDefs', defs)
-
+    //这里少了MultiAreaConditioning节点的注册，但是接口请求是有的
+    // console.log('Registering node definitions消息:', defs)
     // Register a node for each definition
     for (const nodeId in defs) {
       this.registerNodeDef(nodeId, defs[nodeId])

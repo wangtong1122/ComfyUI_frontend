@@ -452,6 +452,7 @@ export class ComfyApi extends EventTarget {
           console.warn(
             `Skipping invalid node definition: ${key}. See debug log for more information.`
           )
+          // 这里可以查看节点解析失效问题
           console.debug(errorMessage)
         }
       )

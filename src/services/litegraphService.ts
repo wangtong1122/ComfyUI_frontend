@@ -182,7 +182,7 @@ export const useLitegraphService = () => {
     addNodeContextMenuHandler(node)
     addDrawBackgroundHandler(node)
     addNodeKeyHandler(node)
-
+    // console.log('哈哈Registering', nodeId)
     await extensionService.invokeExtensionsAsync(
       'beforeRegisterNodeDef',
       node,
