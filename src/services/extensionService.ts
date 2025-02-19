@@ -35,7 +35,8 @@ export const useExtensionService = () => {
         .filter((extension) => !extension.includes('extensions/core'))
         .map(async (ext) => {
           try {
-            await import(/* @vite-ignore */ api.fileURL(ext))
+            console.log('Loading extensionz资源', ext)
+            await import(/* @vite-ignore */ api.fileExURL(ext))
           } catch (error) {
             console.error('Error loading extension', ext, error)
           }

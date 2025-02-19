@@ -30,8 +30,6 @@ function comfyAPIPlugin(): Plugin {
   return {
     name: 'comfy-api-plugin',
     transform(code: string, id: string) {
-      if (IS_DEV) return null
-
       if (isLegacyFile(id)) {
         const result = transformExports(code, id)
 
@@ -107,16 +105,10 @@ export default defineConfig({
       },
 
       '/api': {
-        target: DEV_SERVER_COMFYUI_URL,
+        target: DEV_SERVER_COMFYUI_URL
         // Return empty array for extensions API as these modules
         // are not on vite's dev server.
         // 扩展的API不在vite的开发服务器上，所以返回空数组
-        bypass: (req, res, options) => {
-          if (req.url === '/api/extensions') {
-            res.end(JSON.stringify([]))
-          }
-          return null
-        }
       },
 
       '/ws': {

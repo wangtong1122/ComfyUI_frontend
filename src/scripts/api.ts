@@ -186,6 +186,9 @@ export class ComfyApi extends EventTarget {
   fileURL(route: string): string {
     return this.api_base + route
   }
+  fileExURL(route: string): string {
+    return 'http://192.168.55.10:8188' + route
+  }
   // RequestInit定义http请求的配置项
   fetchApi(route: string, options?: RequestInit) {
     if (!options) {
